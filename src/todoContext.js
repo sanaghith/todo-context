@@ -1,4 +1,5 @@
 import {createContext , useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
 const TodoContext = createContext();
 const TodoProvider = ({children}) => {
@@ -16,10 +17,13 @@ const TodoProvider = ({children}) => {
     const deleteTodo = (id) => {
         setTodos(todos.filter((el)=> el.id !== id))
     }
-
+     
+    const addNewTodo = (todo) => {
+        setTodos([...todos,{...todo , id:uuidv4()}])
+    }
 
     return (
-        <TodoContext.Provider value={{todos , deleteTodo}}>
+        <TodoContext.Provider value={{todos , deleteTodo , addNewTodo}}>
             {children}
         </TodoContext.Provider>
     );
