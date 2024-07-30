@@ -4,8 +4,9 @@ import { TodoContext } from './todoContext'
 const TodoList = () => {
 
 
-    const {todos , deleteTodo} = useContext(TodoContext)
+    const {todos , deleteTodo , toggleTask} = useContext(TodoContext)
 
+  
     
 
   return (
@@ -14,7 +15,18 @@ const TodoList = () => {
             todos.map((el,i)=> (
                 <div key={i}>
                     <hr/>
-                    <h1> {el.description} </h1>
+                    <input
+                        type="checkbox"
+                        checked={el.isCompleted}
+                        onChange={()=>toggleTask(el.id)}
+                    />
+                    
+                    <h1 style={{textDecoration : el.isCompleted ? 'line-through' : "none"}}> 
+                        
+                        {el.description} 
+                    
+                    </h1>
+                   
                     <button onClick={()=>deleteTodo(el.id)}> delete </button>
                     <hr/>
                 </div>
